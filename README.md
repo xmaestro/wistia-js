@@ -36,6 +36,7 @@ Where **WISTIA_API_KEY** is the API Password you got from the Wistia dashboard.
 - `accountRead(cb)`
 - `accountStats(cb)`
 - `eventRead(event_key,cb)`
+- `projectShow(project_hash_id,cb)`
 - `projectCreate(project_data,cb)`
 - `projectList(cb)`
 - `projectUpdate(project_id,project_data,cb)`
