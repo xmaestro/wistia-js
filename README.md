@@ -45,5 +45,6 @@ Where **WISTIA_API_KEY** is the API Password you got from the Wistia dashboard.
 - `mediaUpdate(media_id,media_data,cb)`
 - `mediaDelete(media_hash_id,cb)`
 - `mediaList(project_id,page,per_page,cb)`
+- `mediaUpdateCustomizations(media_id,media_customizations_data,cb)`
 
 `cb` is the callback function.
