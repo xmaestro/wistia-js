@@ -15,10 +15,22 @@ module.exports = function (apiKey, options) {
          * @param Params {Object}
          * @param Callback {any}
          */
-        buildQuery : function (endPoint, params, cb) {
+        buildQuery: function (endPoint, params, cb) {
 
             //build url
-            var url = options.api_url + options.version + '/' + endPoint + "." + options.format;
+
+            var url;
+
+            switch (options.api) {
+
+                case 'upload':
+                    url = "https://upload.wistia.com/";
+                    break;
+
+                case 'data':
+                    url = "https://api.wistia.com/" + options.version + '/' + endPoint + "." + options.format;
+                    break;
+            }
 
             url += "?" + "api_password=" + apiKey + "&";
 
@@ -32,24 +44,34 @@ module.exports = function (apiKey, options) {
 
             }
 
-            //Set params
-            if (params) {
+            if (typeof params.formEncoded != 'undefined') {
 
-                var paramKeys = Object.keys(params);
+                delete params.formEncoded;
 
-                if (paramKeys.length > 0) {
+                this._sendRequestUrlEncoded(url, params, cb);
 
-                    for (var key in paramKeys) {
+            } else {
 
-                        url += paramKeys[key] + "=" + params[paramKeys[key]] + "&";
+                //Set params
+                if (params) {
+
+                    var paramKeys = Object.keys(params);
+
+                    if (paramKeys.length > 0) {
+
+                        for (var key in paramKeys) {
+
+                            url += encodeURIComponent(paramKeys[key] + "=" + params[paramKeys[key]]) + "&";
+
+                        }
 
                     }
 
                 }
 
-            }
+                this._sendRequest(encodeURI(url), reqMethod, cb);
 
-            this._sendRequest(encodeURI(url), reqMethod, cb);
+            }
 
         },
 
@@ -57,7 +79,7 @@ module.exports = function (apiKey, options) {
          * @param API url {String}
          * @param Callback {any}
          */
-        _sendRequest : function (url, method, cb) {
+        _sendRequest: function (url, method, cb) {
 
             request({
                 url: url,
@@ -65,9 +87,34 @@ module.exports = function (apiKey, options) {
             }, function (error, response, body) {
 
                 if (error) {
-
                     return cb(error);
+                }
 
+                if (response.statusCode == 200 || response.statusCode == 201) {
+
+                    return cb(null, body);
+
+                } else {
+
+                    return cb(new Error('Server responded with error: ' + response.statusCode));
+
+                }
+
+            })
+
+        },
+
+        /*
+         * @param url {string}
+         * @param FormData {Object}
+         * @param Callback {any}
+         */
+        _sendRequestUrlEncoded: function (url, formData, cb) {
+
+            request.post({url: url, form: formData}, function (error, response, body) {
+
+                if (error) {
+                    return cb(error);
                 }
 
                 if (response.statusCode == 200 || response.statusCode == 201) {

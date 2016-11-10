@@ -25,7 +25,13 @@ module.exports = function (apiKey, opts) {
 
     return {
         //Data API ==> https://wistia.com/doc/data-api
-        WistiaData: require('./lib/data')(apiKey, options)
+        WistiaData: function () {
+            return require('./lib/data')(apiKey, options)
+        },
+        //Upload API ==> https://wistia.com/doc/upload-api
+        WistiaUpload: function () {
+            return require('./lib/upload')(apiKey, options)
+        }
     }
 
 }

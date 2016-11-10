@@ -4,6 +4,7 @@
 Includes
 
 - Data API
+- Upload API
 
 Installation
 --------------------------------------
@@ -20,23 +21,41 @@ Usage
 ```js
 
 var Wistia = require('wistia-js')('<WISTIA_API_KEY>');
-var wistiaData = Wistia.WistiaData;
+var wistiaData = Wistia.WistiaData();
+var WistiaUpload = Wistia.WistiaUpload();
 
+//Sample for Data API
 wistiaData.accountRead(function(error,data){
-        if(error){ console.log(error); }
-        console.log(JSON.parse(data));
+    if(error){ console.log(error); }
+    console.log(data);
+});
+
+//Sample for Upload API
+WistiaUpload.upload({
+    project_id: '<WISTIA_PROJECT_ID>',
+    url: 'http://url/to/video'
+}, function (error, data) {
+    if (error) {
+        console.log(error);
+    }
+    console.log(data);
 });
 
 ```
-
-Where **WISTIA_API_KEY** is the API Password you got from the Wistia dashboard.
+Where **WISTIA_API_KEY** is the API Password you got from the Wistia dashboard and **WISTIA_PROJECT_ID** is the optional Project ID.
 
 ## Wistia Data API Functions
+
+### Accounts
 
 - `accountRead(cb)`
 - `accountStats(cb)`
 
+### Events
+
 - `eventRead(event_key,cb)`
+
+### Projects
 
 - `projectShow(project_hash_id,cb)`
 - `projectCreate(project_data,cb)`
@@ -45,11 +64,15 @@ Where **WISTIA_API_KEY** is the API Password you got from the Wistia dashboard.
 - `projectDelete(project_id,cb)`
 - `projectCopy(project_id,copy_options,cb)`
 
+### Project Sharings
+
 - `projectSharingsList(project_id,cb)`
 - `projectSharingsShow(project_id,sharing_id,cb)`
 - `projectSharingsCreate(project_id,sharing_data,cb)`
 - `projectSharingsUpdate(project_id,sharing_id,project_sharing_data,cb)`
 - `projectSharingsDelete(project_id,sharing_id,cb)`
+
+### Media
 
 - `mediaShow(media_id,cb)`
 - `mediaCopy(media_id,copy_options,cb)`
@@ -58,10 +81,14 @@ Where **WISTIA_API_KEY** is the API Password you got from the Wistia dashboard.
 - `mediaDelete(media_hash_id,cb)`
 - `mediaList(project_id,page,per_page,cb)`
 
+### Media Customizations
+
 - `customizationsShow(media_id,cb)`
 - `customizationsCreate(media_id,customization_data,cb)`
 - `customizationsUpdate(media_id,customization_data,cb)`
 - `customizationsDelete(media_id,cb)`
+
+### Captions
 
 - `captionsIndex(media_id,cb)`
 - `captionsCreate(media_id,caption_data,cb)`
@@ -69,7 +96,8 @@ Where **WISTIA_API_KEY** is the API Password you got from the Wistia dashboard.
 - `captionsUpdate(media_id,lang_code,cb)`
 - `captionsPurchase(media_id,cb)`
 
-`cb` is the callback function.
+## Wistia Upload API Functions
 
-## Note
-This is a work in progress and I try to keep everything updated, but, if you still find something that needs updated please feel free to report a bug or create a PR.
+- `upload(params,cb)`
+
+`cb` is the callback function.
