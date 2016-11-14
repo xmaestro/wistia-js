@@ -61,7 +61,7 @@ module.exports = function (apiKey, options) {
 
                         for (var key in paramKeys) {
 
-                            url += encodeURIComponent(paramKeys[key] + "=" + params[paramKeys[key]]) + "&";
+                            url += paramKeys[key] + "=" + params[paramKeys[key]] + "&";
 
                         }
 
