@@ -30,10 +30,21 @@ wistiaData.accountRead(function(error,data){
     console.log(data);
 });
 
-//Sample for Upload API
+//Sample for Upload API, i.e. using URL
 WistiaUpload.upload({
     project_id: '<WISTIA_PROJECT_ID>',
     url: 'http://url/to/video'
+}, function (error, data) {
+    if (error) {
+        console.log(error);
+    }
+    console.log(data);
+});
+
+//Sample for Upload API, i.e. using file stream
+WistiaUpload.upload({
+    project_id: '<WISTIA_PROJECT_ID>',
+    file: fs.createReadStream('path/to/file')
 }, function (error, data) {
     if (error) {
         console.log(error);

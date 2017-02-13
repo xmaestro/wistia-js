@@ -111,7 +111,7 @@ module.exports = function (apiKey, options) {
          */
         _sendRequestUrlEncoded: function (url, formData, cb) {
 
-            request.post({url: url, form: formData}, function (error, response, body) {
+            request.post({url: url, formData: formData}, function (error, response, body) {
 
                 if (error) {
                     return cb(error);
