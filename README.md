@@ -3,8 +3,8 @@
 
 Includes
 
-- Data API
-- Upload API
+- Data API [Wistia data API docs](https://wistia.com/doc/data-api)
+- Upload API [Wistia upload API docs](https://wistia.com/doc/upload-api)
 
 Installation
 --------------------------------------
@@ -33,7 +33,7 @@ wistiaData.accountRead(function(error,data){
 //Sample for Upload API, i.e. using URL
 WistiaUpload.upload({
     project_id: '<WISTIA_PROJECT_ID>',
-    url: 'http://url/to/video'
+    url: 'http://url/to/video.mp4'
 }, function (error, data) {
     if (error) {
         console.log(error);
@@ -44,7 +44,7 @@ WistiaUpload.upload({
 //Sample for Upload API, i.e. using file stream
 WistiaUpload.upload({
     project_id: '<WISTIA_PROJECT_ID>',
-    file: fs.createReadStream('path/to/file')
+    file: fs.createReadStream('//path/to/file.mp4')
 }, function (error, data) {
     if (error) {
         console.log(error);
