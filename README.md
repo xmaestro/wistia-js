@@ -70,7 +70,7 @@ Where **WISTIA_API_KEY** is the API Password you got from the Wistia dashboard a
 
 - `projectShow(project_hash_id,cb)`
 - `projectCreate(project_data,cb)`
-- `projectList(cb)`
+- `projectList([pagination_options], cb)`
 - `projectUpdate(project_id,project_data,cb)`
 - `projectDelete(project_id,cb)`
 - `projectCopy(project_id,copy_options,cb)`
