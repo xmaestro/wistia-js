@@ -1,6 +1,6 @@
 {
     "name": "wistia-js",
-    "version": "0.0.8",
+    "version": "1.0.0",
     "description": "Wistia api for Node.js",
     "main": "index.js",
     "scripts": {
